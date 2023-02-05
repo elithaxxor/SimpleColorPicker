@@ -15,7 +15,8 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        colorPicker.delegate = self
+        view.backgroundColor = selectedColor 
     }
     
     // colocker picker controller / present
@@ -38,15 +39,17 @@ class ViewController: UIViewController {
 
 }
 
-extension ViewController : UIColorPickerViewControllerDelegate {
-    
-    //    Informs the delegate when a person selects a color, indicating whether the update is part of a continuous user interaction.}
-    func colorPickerViewController(_ viewController: UIColorPickerViewController, didSelect color: UIColor, continuously: Bool) {
-        viewC
-    }
-        
+//  picker-->   Informs the delegate when a person selects a color, indicating whether the update is part of a continuous user interaction.}
 
-    //Informs the delegate that the user dismissed the view controller.
-    func colorPickerViewControllerDidSelectColor(_ viewController: UIColorPickerViewController) {
-        <#code#>
+// did select--> Informs the delegate that the user dismissed the view controller.
+extension ViewController : UIColorPickerViewControllerDelegate {
+    func colorPickerViewController(_ viewController: UIColorPickerViewController, didSelect color: UIColor, continuously: Bool) {
+        selectedColor = viewController.selectedColor
+        view.backgroundColor = selectedColor
+        print("user initiated color picker \(viewController.selectedColor)")
     }
+    
+    func colorPickerViewControllerDidSelectColor(_ viewController: UIColorPickerViewController) {
+        print("user dismissed colorpicker controller \(viewController.selectedColor)")
+    }
+}
